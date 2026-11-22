@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskManager</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>TaskManager</h1>
+    <p>Sistema web para la gestión de tareas · TechSolutions</p>
+  </header>
+
+  <main class="container">
+    <!-- Formulario: registrar / editar tarea (RF01, RF03, RF06) -->
+    <section class="card">
+      <h2 id="form-title">Nueva tarea</h2>
+      <form id="task-form" novalidate>
+        <input type="hidden" id="task-id" />
+
+        <label for="title">Nombre de la tarea *</label>
+        <input type="text" id="title" maxlength="100" placeholder="Ej. Elaborar documentación" />
+        <small class="error" id="title-error"></small>
+
+        <label for="description">Descripción</label>
+        <textarea id="description" maxlength="500" rows="3" placeholder="Detalles de la tarea (opcional)"></textarea>
+
+        <div class="row">
+          <div>
+            <label for="priority">Prioridad</label>
+            <select id="priority">
+              <option value="alta">Alta</option>
+              <option value="media" selected>Media</option>
+              <option value="baja">Baja</option>
+            </select>
+          </div>
+          <div>
+            <label for="status">Estado</label>
+            <select id="status">
+              <option value="pendiente" selected>Pendiente</option>
+              <option value="en_proceso">En proceso</option>
+              <option value="terminada">Terminada</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="submit-btn">Guardar tarea</button>
+          <button type="button" class="btn" id="cancel-btn" hidden>Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Listado de tareas (RF02, RF04, RF05) -->
+    <section class="card">
+      <div class="list-header">
+        <h2>Tareas registradas <span id="count" class="count">0</span></h2>
+        <select id="filter-status" aria-label="Filtrar por estado">
+          <option value="">Todos los estados</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="en_proceso">En proceso</option>
+          <option value="terminada">Terminada</option>
+        </select>
+      </div>
+      <ul id="task-list" class="task-list"></ul>
+      <p id="empty" class="empty">No hay tareas registradas.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
