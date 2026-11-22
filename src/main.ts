@@ -1,13 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 import { AppModule } from './app.module.js';
 
 async function bootstrap() {
-  const isProduction = process.env.NODE_ENV === 'production';
-  const app = isProduction
-    ? await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
-    : await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -17,6 +15,10 @@ async function bootstrap() {
     }),
   );
   app.enableCors();
+
+  // Frontend: sirve los archivos de la carpeta /public (HTML, CSS y JS)
+  app.useStaticAssets(join(process.cwd(), 'public'));
+
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
 bootstrap();
