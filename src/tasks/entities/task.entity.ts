@@ -30,14 +30,14 @@ export class Task {
   description: string;
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: TaskStatus,
     default: TaskStatus.PENDIENTE,
   })
   status: TaskStatus;
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: TaskPriority,
     default: TaskPriority.MEDIA,
   })
