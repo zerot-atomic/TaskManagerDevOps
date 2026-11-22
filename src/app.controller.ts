@@ -5,8 +5,9 @@ import { AppService } from './app.service.js';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  // Endpoint de salud para monitoreo (Fase 7)
+  @Get('health')
+  getHealth() {
+    return this.appService.getHealth();
   }
 }
